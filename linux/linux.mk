@@ -61,6 +61,8 @@ LINUX_PATCHES = $(call qstrip,$(BR2_LINUX_KERNEL_PATCH))
 # be directories in the patch list (unlike for other packages).
 LINUX_PATCH = $(filter ftp://% http://% https://%,$(LINUX_PATCHES))
 
+LINUX_FIRMWARE = $(call qstrip,$(BR2_LINUX_KERNEL_FIRMWARE))
+
 LINUX_INSTALL_IMAGES = YES
 LINUX_DEPENDENCIES += host-kmod
 
@@ -214,7 +216,13 @@ define LINUX_APPLY_LOCAL_PATCHES
 	done
 endef
 
+define LINUX_APPLY_LOCAL_FIRMWARE
+	cp $(LINUX_FIRMWARE)/* $(LINUX_DIR)/firmware/
+endef
+
+
 LINUX_POST_PATCH_HOOKS += LINUX_APPLY_LOCAL_PATCHES
+LINUX_POST_PATCH_HOOKS += LINUX_APPLY_LOCAL_FIRMWARE
 
 # Older linux kernels use deprecated perl constructs in timeconst.pl
 # that were removed for perl 5.22+ so it breaks on newer distributions

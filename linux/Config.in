@@ -141,6 +141,17 @@ config BR2_LINUX_KERNEL_PATCH
 	  matching *.patch in the directory will be applied.
 
 #
+# firmware selection
+#
+
+config BR2_LINUX_KERNEL_FIRMWARE
+	string "Custom kernel firmware"
+	help
+	  A URL, a local file path, or a directory. In the case of a 
+	  directory, all files in the directory will be applied.
+	  
+	  
+#
 # Configuration selection
 #
 
